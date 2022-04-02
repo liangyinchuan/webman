@@ -4,10 +4,11 @@ namespace app\controller;
 
 use support\Request;
 
-class Index
+class BaseController
 {
     public function index(Request $request)
     {
+        return route_path();
         return response('hello webman');
     }
 

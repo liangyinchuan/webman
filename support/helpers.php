@@ -37,8 +37,7 @@ define('WEBMAN_VERSION', '1.3.0');
  * @param $return_phar
  * @return false|string
  */
-function base_path($return_phar = true)
-{
+function base_path($return_phar = true){
     static $real_path = '';
     if (!$real_path) {
         $real_path = is_phar() ? dirname(Phar::running(false)) : BASE_PATH;
@@ -49,16 +48,22 @@ function base_path($return_phar = true)
 /**
  * @return string
  */
-function app_path()
-{
+function app_path(){
     return BASE_PATH . DIRECTORY_SEPARATOR . 'app';
+}
+
+/**
+ * 路由处理文件
+ * @return string
+ */
+function route_path(){
+    return BASE_PATH . DIRECTORY_SEPARATOR . 'routers';
 }
 
 /**
  * @return string
  */
-function public_path()
-{
+function public_path(){
     static $path = '';
     if (!$path) {
         $path = get_realpath(config('app.public_path', BASE_PATH . DIRECTORY_SEPARATOR . 'public'));
@@ -69,8 +74,14 @@ function public_path()
 /**
  * @return string
  */
-function config_path()
-{
+function upload_path(){
+    return BASE_PATH.DIRECTORY_SEPARATOR.'public'.DIRECTORY_SEPARATOR.'upload';
+}
+
+/**
+ * @return string
+ */
+function config_path(){
     return BASE_PATH . DIRECTORY_SEPARATOR . 'config';
 }
 
@@ -80,8 +91,7 @@ function config_path()
  *
  * @return string
  */
-function runtime_path()
-{
+function runtime_path(){
     static $path = '';
     if (!$path) {
         $path = get_realpath(config('app.runtime_path', BASE_PATH . DIRECTORY_SEPARATOR . 'runtime'));
@@ -95,8 +105,7 @@ function runtime_path()
  * @param string $body
  * @return Response
  */
-function response($body = '', $status = 200, $headers = array())
-{
+function response($body = '', $status = 200, $headers = array()){
     return new Response($status, $headers, $body);
 }
 
@@ -105,8 +114,7 @@ function response($body = '', $status = 200, $headers = array())
  * @param int $options
  * @return Response
  */
-function json($data, $options = JSON_UNESCAPED_UNICODE)
-{
+function json($data, $options = JSON_UNESCAPED_UNICODE){
     return new Response(200, ['Content-Type' => 'application/json'], json_encode($data, $options));
 }
 
@@ -114,8 +122,7 @@ function json($data, $options = JSON_UNESCAPED_UNICODE)
  * @param $xml
  * @return Response
  */
-function xml($xml)
-{
+function xml($xml){
     if ($xml instanceof SimpleXMLElement) {
         $xml = $xml->asXML();
     }
@@ -127,8 +134,7 @@ function xml($xml)
  * @param string $callback_name
  * @return Response
  */
-function jsonp($data, $callback_name = 'callback')
-{
+function jsonp($data, $callback_name = 'callback'){
     if (!is_scalar($data) && null !== $data) {
         $data = json_encode($data);
     }
@@ -141,8 +147,7 @@ function jsonp($data, $callback_name = 'callback')
  * @param array $headers
  * @return Response
  */
-function redirect($location, $status = 302, $headers = [])
-{
+function redirect($location, $status = 302, $headers = []){
     $response = new Response($status, ['Location' => $location]);
     if (!empty($headers)) {
         $response->withHeaders($headers);
@@ -156,8 +161,7 @@ function redirect($location, $status = 302, $headers = [])
  * @param null $app
  * @return Response
  */
-function view($template, $vars = [], $app = null)
-{
+function view($template, $vars = [], $app = null){
     static $handler;
     if (null === $handler) {
         $handler = config('view.handler');
@@ -171,8 +175,7 @@ function view($template, $vars = [], $app = null)
  * @param null $app
  * @return Response
  */
-function raw_view($template, $vars = [], $app = null)
-{
+function raw_view($template, $vars = [], $app = null){
     return new Response(200, [], Raw::render($template, $vars, $app));
 }
 
@@ -182,8 +185,7 @@ function raw_view($template, $vars = [], $app = null)
  * @param null $app
  * @return Response
  */
-function blade_view($template, $vars = [], $app = null)
-{
+function blade_view($template, $vars = [], $app = null){
     return new Response(200, [], Blade::render($template, $vars, $app));
 }
 
@@ -193,8 +195,7 @@ function blade_view($template, $vars = [], $app = null)
  * @param null $app
  * @return Response
  */
-function think_view($template, $vars = [], $app = null)
-{
+function think_view($template, $vars = [], $app = null){
     return new Response(200, [], ThinkPHP::render($template, $vars, $app));
 }
 
@@ -204,16 +205,14 @@ function think_view($template, $vars = [], $app = null)
  * @param null $app
  * @return Response
  */
-function twig_view($template, $vars = [], $app = null)
-{
+function twig_view($template, $vars = [], $app = null){
     return new Response(200, [], Twig::render($template, $vars, $app));
 }
 
 /**
  * @return Request
  */
-function request()
-{
+function request(){
     return App::request();
 }
 
@@ -222,8 +221,7 @@ function request()
  * @param null $default
  * @return mixed
  */
-function config($key = null, $default = null)
-{
+function config($key = null, $default = null){
     return Config::get($key, $default);
 }
 
@@ -232,8 +230,7 @@ function config($key = null, $default = null)
  * @param ...$parameters
  * @return string
  */
-function route($name, ...$parameters)
-{
+function route($name, ...$parameters){
     $route = Route::getByName($name);
     if (!$route) {
         return '';
@@ -255,8 +252,7 @@ function route($name, ...$parameters)
  * @param mixed $default
  * @return mixed
  */
-function session($key = null, $default = null)
-{
+function session($key = null, $default = null){
     $session = request()->session();
     if (null === $key) {
         return $session;
@@ -286,8 +282,7 @@ function session($key = null, $default = null)
  * @param string|null $locale
  * @return string
  */
-function trans(string $id, array $parameters = [], string $domain = null, string $locale = null)
-{
+function trans(string $id, array $parameters = [], string $domain = null, string $locale = null){
     $res = Translation::trans($id, $parameters, $domain, $locale);
     return $res === '' ? $id : $res;
 }
@@ -296,8 +291,7 @@ function trans(string $id, array $parameters = [], string $domain = null, string
  * @param null|string $locale
  * @return string
  */
-function locale(string $locale = null)
-{
+function locale(string $locale = null){
     if (!$locale) {
         return Translation::getLocale();
     }
@@ -309,8 +303,7 @@ function locale(string $locale = null)
  *
  * @return Response
  */
-function not_found()
-{
+function not_found(){
     return new Response(404, [], file_get_contents(public_path() . '/404.html'));
 }
 
@@ -321,8 +314,7 @@ function not_found()
  * @param bool $overwrite
  * @return void
  */
-function copy_dir($source, $dest, $overwrite = false)
-{
+function copy_dir($source, $dest, $overwrite = false){
     if (is_dir($source)) {
         if (!is_dir($dest)) {
             mkdir($dest);
@@ -343,8 +335,7 @@ function copy_dir($source, $dest, $overwrite = false)
  * @param $dir
  * @return bool
  */
-function remove_dir($dir)
-{
+function remove_dir($dir){
     if (is_link($dir) || is_file($dir)) {
         return unlink($dir);
     }
@@ -359,8 +350,7 @@ function remove_dir($dir)
  * @param $worker
  * @param $class
  */
-function worker_bind($worker, $class)
-{
+function worker_bind($worker, $class){
     $callback_map = [
         'onConnect',
         'onMessage',
@@ -386,8 +376,7 @@ function worker_bind($worker, $class)
  * @param $config
  * @return void
  */
-function worker_start($process_name, $config)
-{
+function worker_start($process_name, $config){
     $worker = new Worker($config['listen'] ?? null, $config['context'] ?? []);
     $property_map = [
         'count',
@@ -442,8 +431,7 @@ function worker_start($process_name, $config)
  * @param string $file_path
  * @return string
  */
-function get_realpath(string $file_path): string
-{
+function get_realpath(string $file_path): string{
     if (strpos($file_path, 'phar://') === 0) {
         return $file_path;
     } else {
@@ -454,16 +442,14 @@ function get_realpath(string $file_path): string
 /**
  * @return bool
  */
-function is_phar()
-{
+function is_phar(){
     return class_exists(\Phar::class, false) && Phar::running();
 }
 
 /**
  * @return int
  */
-function cpu_count()
-{
+function cpu_count(){
     // Windows does not support the number of processes setting.
     if (\DIRECTORY_SEPARATOR === '\\') {
         return 1;

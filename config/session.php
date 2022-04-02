@@ -14,9 +14,13 @@
 
 return [
 
-    'type' => 'file', // or redis or redis_cluster
+//    'type' => 'file',
+    'type' => 'redis',
+//    'type' => 'redis_cluster',
 
-    'handler' => Webman\FileSessionHandler::class,
+//    'handler' => Webman\FileSessionHandler::class,          // file
+    'handler' => Webman\RedisSessionHandler::class,         // redis
+//    'handler' => Webman\RedisClusterSessionHandler::class,  // redis_cluster
 
     'config' => [
         'file' => [
@@ -25,9 +29,9 @@ return [
         'redis' => [
             'host' => '127.0.0.1',
             'port' => 6379,
-            'auth' => '',
+            'auth' => '123456',
             'timeout' => 2,
-            'database' => '',
+            'database' => '1',
             'prefix' => 'redis_session_',
         ],
         'redis_cluster' => [
