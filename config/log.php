@@ -20,7 +20,7 @@ return [
                 'constructor' => [
                     runtime_path() . '/logs/webman.log',
                     7, //$maxFiles
-                    Monolog\Logger::DEBUG,
+                    Monolog\Logger::INFO,
                 ],
                 'formatter' => [
                     'class' => Monolog\Formatter\LineFormatter::class,

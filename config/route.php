@@ -14,18 +14,18 @@
 use Webman\Route;
 
 // test router
-Route::any('/lyc',[app\controller\TestController::class,'router']);
-Route::get('/lycget',[app\controller\TestController::class,'routermethod']);
-Route::post('/lycpost',[app\controller\TestController::class,'routermethod']);
-Route::any('/file/{file}',[app\controller\TestController::class,'staticfile']);
-Route::get('/html',[app\controller\TestController::class,'html']);
-Route::get('/session',[app\controller\TestController::class,'sessiontest']);
-Route::get('/delsession',[app\controller\TestController::class,'sessiondel']);
-
-// router group
-Route::group('/group',function (){
-    Route::any('/lyc',[app\controller\TestController::class,'router']);
-    Route::get('/lycget',[app\controller\TestController::class,'routermethod']);
-    Route::post('/lycpost',[app\controller\TestController::class,'routermethod']);
-    Route::any('/lycjson',[app\controller\TestController::class,'routerjson']);
-})->middleware([app\middleware\MiddleA::class,app\middleware\MiddleB::class]);
+//Route::any('/lyc',[app\controller\TestController::class,'router']);
+//Route::get('/lycget',[app\controller\TestController::class,'routermethod']);
+//Route::post('/lycpost',[app\controller\TestController::class,'routermethod']);
+//Route::any('/file/{file}',[app\controller\TestController::class,'staticfile']);
+//Route::get('/html',[app\controller\TestController::class,'html']);
+//Route::get('/session',[app\controller\TestController::class,'sessiontest']);
+//Route::get('/delsession',[app\controller\TestController::class,'sessiondel']);
+//
+//// router group
+//Route::group('/group',function (){
+//    Route::any('/lyc',[app\controller\TestController::class,'router']);
+//    Route::get('/lycget',[app\controller\TestController::class,'routermethod']);
+//    Route::post('/lycpost',[app\controller\TestController::class,'routermethod']);
+//    Route::any('/lycjson',[app\controller\TestController::class,'routerjson']);
+//})->middleware([app\middleware\MiddleA::class,app\middleware\MiddleB::class]);

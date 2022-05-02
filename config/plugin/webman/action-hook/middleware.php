@@ -12,11 +12,10 @@
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+use Webman\ActionHook\ActionHook;
+
 return [
-    'default' => [
-        'host' => '127.0.0.1',
-        'password' => 'liangyc5914',
-        'port' => 6379,
-        'database' => 0,
-    ],
+    '' => [
+        ActionHook::class
+    ]
 ];

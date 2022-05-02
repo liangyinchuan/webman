@@ -30,7 +30,11 @@
     "adhocore/jwt": "^1.1",
     "webman/action-hook": "^1.0",
     "tinywan/jwt": "^1.2",
-    "twig/twig": "^3.3"
+    "twig/twig": "^3.3",
+    "illuminate/redis": "^8.83",
+    "symfony/cache": "^5.4",
+    "illuminate/database": "^8.83",
+    "workerman/crontab": "^1.0"
   },
   "suggest": {
     "ext-event": "For better performance. "
