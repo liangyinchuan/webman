@@ -2,12 +2,14 @@
 
 namespace app\controller;
 
+use Monolog\Logger;
 use support\Log;
 use support\Request;
 use support\Redis;
 use support\Cache;
 use app\model\Test;
 use support\Db;
+use Tinywan\Jwt\JwtToken;
 
 class IndexController
 {
@@ -47,8 +49,6 @@ class IndexController
         foreach ($request->all() as $k=>$v){
             $ret[$k] = Cache::get($k);
         }
-
-
         return json($ret);
     }
 
@@ -57,7 +57,10 @@ class IndexController
         $test = new Test();
         $test->rand_num = $randNum;
         $test->save();
-        return $test->getAttribute('id');
+        $id = $test->getAttribute('id');
+        Log
+            ::INFO('insertid:'.$id);
+        return $id;
     }
 
     public function logs(){
@@ -68,6 +71,26 @@ class IndexController
 
     public function clearTestTable(){
         return Db::table('test')->truncate();
+    }
+
+    public function jwt(){
+        $user = [
+            'id'  => 2022,
+            'name'  => 'Tinywan',
+        ];
+        $token = JwtToken::generateToken($user);
+        Log::info(__FUNCTION__,$token);
+        return json_encode($token);
+    }
+
+    public function getJwtData(Request $request){
+        $ret = array(
+            JwtToken::getCurrentId(),
+            JwtToken::getExtend(),
+            JwtToken::getExtendVal('email'),
+            JwtToken::getTokenExp(),
+        );
+        return json($ret);
     }
 
 }

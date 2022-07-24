@@ -34,7 +34,8 @@
     "illuminate/redis": "^8.83",
     "symfony/cache": "^5.4",
     "illuminate/database": "^8.83",
-    "workerman/crontab": "^1.0"
+    "workerman/crontab": "^1.0",
+    "webman/console": "^1.0"
   },
   "suggest": {
     "ext-event": "For better performance. "

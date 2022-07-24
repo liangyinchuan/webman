@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eec8b98c6b6699c317c326fd82dc2ac9",
+    "content-hash": "a25f826aace3222d6b9c31cef3288906",
     "packages": [
         {
             "name": "adhocore/jwt",
@@ -2519,6 +2519,64 @@
             "time": "2022-03-19T09:02:05+00:00"
         },
         {
+            "name": "webman/console",
+            "version": "v1.0.24",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webman-php/console.git",
+                "reference": "e4ff8b4d669ac02bf975b98d5d00ccd652967c23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webman-php/console/zipball/e4ff8b4d669ac02bf975b98d5d00ccd652967c23",
+                "reference": "e4ff8b4d669ac02bf975b98d5d00ccd652967c23",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "symfony/console": ">=5.0"
+            },
+            "require-dev": {
+                "workerman/webman": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Webman\\Console\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "walkor",
+                    "email": "walkor@workerman.net",
+                    "homepage": "http://www.workerman.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Webman console",
+            "homepage": "http://www.workerman.net",
+            "keywords": [
+                "webman console"
+            ],
+            "support": {
+                "email": "walkor@workerman.net",
+                "forum": "http://www.workerman.net/questions",
+                "issues": "https://github.com/webman-php/console/issues",
+                "source": "https://github.com/webman-php/console",
+                "wiki": "http://www.workerman.net/doc/webman"
+            },
+            "time": "2022-03-25T02:01:45+00:00"
+        },
+        {
             "name": "workerman/crontab",
             "version": "v1.0.3",
             "source": {
@@ -2719,5 +2777,5 @@
         "php": ">=7.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.1.0"
 }
